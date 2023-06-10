@@ -7,11 +7,11 @@ export default function App() {
   return (
     <>
       <StatusBar style='dark' />
-      <NavigationContainer>
-        <View style={styles.rootPage}>
+      <SafeAreaView style={styles.rootPage}>
+        <NavigationContainer>
           <BottomTabs />
-        </View>
-      </NavigationContainer>
+        </NavigationContainer>
+      </SafeAreaView>
     </>
   );
 }

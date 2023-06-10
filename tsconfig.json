@@ -1,7 +1,7 @@
 {
   "extends": "expo/tsconfig.base",
   "compilerOptions": {
-    "baseUrl": ".",
+    "baseUrl": "./",
     "paths": {
       "*": ["src/*"],
       "tests": ["tests/*"],
@@ -10,7 +10,9 @@
       "@stores/*": ["src/stores/*"],
       "@utils/*": ["src/utils/*"],
       "@services/*": ["src/services/*"],
-      "@constants/*": ["src/constants/*"]
+      "@constants/*": ["src/constants/*"],
+      "@hooks/*": ["src/hooks/*"],
+      "@types/*": ["src/@types/*"]
     }
   }
 }
