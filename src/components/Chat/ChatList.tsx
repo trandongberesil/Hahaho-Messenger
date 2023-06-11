@@ -17,9 +17,3 @@ export default function ChatList({ chats }: props) {
     />
   );
 }
-
-const styles = StyleSheet.create({
-  chatList: {
-    flex: 1,
-  },
-});

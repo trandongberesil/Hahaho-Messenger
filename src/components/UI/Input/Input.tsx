@@ -11,7 +11,6 @@ type props = {
 };
 
 function Input({ onChangeText, inputConfig, style }: props) {
-  console.log('re-render');
   return (
     <TextInput
       style={[styles.inputContainer, style]}

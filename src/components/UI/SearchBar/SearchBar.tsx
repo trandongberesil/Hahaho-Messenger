@@ -10,7 +10,7 @@ type props = {
   handleSearchValue: (value: string) => void;
 };
 
-let inputConfig: { [key: string]: any } = {
+let inputConfig = {
   placeholder: 'Search',
   autoComplete: 'off',
   autoCorrect: false,
@@ -22,13 +22,13 @@ function SearchBar({ handleSearchValue }: props) {
   const debounceValue = useDebounce(value, 500);
 
   const handleChangeValue = useCallback((e: string) => {
-    setValue(e);
+    if (!e.startsWith(' ')) {
+      setValue(e);
+    }
   }, []);
 
   useEffect(() => {
-    if (debounceValue) {
-      handleSearchValue(debounceValue);
-    }
+    handleSearchValue(debounceValue);
   }, [debounceValue]);
 
   return (
