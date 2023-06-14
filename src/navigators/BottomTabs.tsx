@@ -5,6 +5,7 @@ import { Ionicons } from '@expo/vector-icons';
 //screens
 import Chats from '@screens/Chats';
 import People from '@screens/People';
+import StackNavigator from './Stack';
 
 // components
 import Header from '@components/UI/Header/Header';
@@ -16,15 +17,18 @@ export const BottomTabs = () => {
     <Bottom.Navigator
       screenOptions={{
         tabBarShowLabel: false,
-        header: (props) => <Header props={props} />,
         tabBarActiveTintColor: '#333',
         tabBarInactiveTintColor: '#ccc',
+
+        header: (props) => <Header props={props} />,
       }}
     >
       <Bottom.Screen
-        name='Chats'
-        component={Chats}
+        name='Home'
+        component={StackNavigator}
         options={{
+          headerShown: false,
+          // header
           title: 'Chats',
           tabBarIcon: ({ size, color }) => (
             <Ionicons name='chatbubble' color={color} size={size} />

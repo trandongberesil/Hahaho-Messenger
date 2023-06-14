@@ -10,13 +10,19 @@ import Icon from '@components/UI/Icon/Icon';
 
 type props = {
   chatData: chat;
+  onPressChatItem: (id: string) => void;
 };
 
-export default function ChatItem({ chatData }: props) {
+export default function ChatItem({ chatData, onPressChatItem }: props) {
   const { id, avatarUrl, isOnline, name, isSeen, lastMessage } = chatData;
+
+  const handlePressChatItem = () => {
+    onPressChatItem(id);
+  };
 
   return (
     <Pressable
+      onPress={handlePressChatItem}
       style={({ pressed }) => [
         styles.chatItemContainer,
         pressed && styles.pressed,

@@ -1,38 +1,79 @@
-import { View, Text, StyleSheet } from 'react-native';
-import React from 'react';
-import Avatar from '../Avatar/Avatar';
-import Icon from '../Icon/Icon';
-import { Entypo } from '@expo/vector-icons';
-import SearchBar from '../SearchBar/SearchBar';
-import { useRoute } from '@react-navigation/native';
-import { BottomTabHeaderProps } from '@react-navigation/bottom-tabs';
+import React, { useLayoutEffect } from 'react';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
+
+// constants
 import { Colors } from '@constants/GlobalStyle';
 
+// navigate
+import { BottomTabHeaderProps } from '@react-navigation/bottom-tabs';
+import { NativeStackHeaderProps } from '@react-navigation/native-stack';
+import { useNavigation } from '@react-navigation/native';
+
+// components
+import Avatar from '../Avatar/Avatar';
+import Icon from '../Icon/Icon';
+import { Ionicons } from '@expo/vector-icons';
+
+// data
+import { ChatList } from '../../../data/ChatData';
+
 type props = {
-  props: BottomTabHeaderProps;
+  props: BottomTabHeaderProps | NativeStackHeaderProps;
 };
 
 export default function Header({ props }: props) {
+  const navigation = useNavigation<any>();
+
+  const handlePressBack = () => {
+    navigation.goBack();
+  };
+
+  const chatId = props.route.params?.chatId;
+
+  const chatSelected =
+    !!chatId && ChatList.find((chatItem) => chatItem.id === chatId);
+
   return (
     <View style={styles.headerContainer}>
       <View style={styles.avatar}>
-        <Avatar isOnline={true} />
-        <Text style={styles.text}>{props.options.title}</Text>
+        {!!chatSelected && (
+          <Pressable
+            onPress={handlePressBack}
+            style={({ pressed }) => [
+              styles.iconBack,
+              pressed && styles.pressedIconBack,
+            ]}
+          >
+            <Ionicons
+              name='chevron-back'
+              size={30}
+              // color='#333'
+            />
+          </Pressable>
+        )}
+        <Avatar
+          isOnline={chatSelected?.isOnline ?? true}
+          avatarUrl={chatSelected.avatarUrl}
+        />
+        <Text
+          numberOfLines={1}
+          style={[styles.text, chatSelected?.name && styles.name]}
+        >
+          {chatSelected?.name ?? props.route.name}
+        </Text>
       </View>
-      <View style={styles.iconContainer}>
-        {/* <View style={styles.icon}>
-          <Icon icon='camera' size={20} color='#333' circle />
-        </View> */}
-
-        <View style={styles.icon}>
-          <Icon
-            icon='chatbubble-ellipses-outline'
-            size={20}
-            color='#333'
-            circle
-          />
+      {!chatSelected && (
+        <View style={styles.iconContainer}>
+          <View style={styles.icon}>
+            <Icon
+              icon='chatbubble-ellipses-outline'
+              size={20}
+              color='#333'
+              circle
+            />
+          </View>
         </View>
-      </View>
+      )}
     </View>
   );
 }
@@ -46,6 +87,14 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.white,
   },
 
+  iconBack: {
+    marginRight: 4,
+  },
+
+  pressedIconBack: {
+    opacity: 0.6,
+  },
+
   avatar: {
     display: 'flex',
     flexDirection: 'row',
@@ -54,9 +103,16 @@ const styles = StyleSheet.create({
   },
 
   text: {
-    marginLeft: 16,
+    marginLeft: 30,
     fontWeight: 'bold',
     fontSize: 30,
+    maxWidth: 200,
+    overflow: 'hidden',
+  },
+
+  name: {
+    fontSize: 20,
+    marginLeft: 8,
   },
 
   iconContainer: {
