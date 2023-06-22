@@ -16,7 +16,7 @@ export default function Avatar({ avatarUrl, isOnline = false }: props) {
         <Image
           style={styles.image}
           source={
-            avatarUrl ? avatarUrl : require('../../../assets/image/avatar.png')
+            avatarUrl ? avatarUrl : require('../../../assets/image/avatar.jpg')
           }
         />
       </View>
