@@ -5,16 +5,16 @@ import Icon from '../Icon/Icon';
 type props = {
   // value: string | number;
   onChangeText: Function;
-
   inputConfig?: any;
   style?: any;
+  value?: string;
 };
 
-function Input({ onChangeText, inputConfig, style }: props) {
+function Input({ onChangeText, value, inputConfig, style }: props) {
   return (
     <TextInput
       style={[styles.inputContainer, style]}
-      // value={value}
+      value={value}
       onChangeText={onChangeText}
       {...inputConfig}
     />

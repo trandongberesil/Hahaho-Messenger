@@ -30,6 +30,7 @@ export default function ChatList({ chats }: props) {
     <FlatList
       // style={styles.chatList}
       showsVerticalScrollIndicator={false}
+      keyExtractor={(chat) => chat.id}
       data={chats}
       renderItem={(chatData) => (
         <ChatItem

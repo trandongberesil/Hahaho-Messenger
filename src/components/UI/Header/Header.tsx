@@ -1,5 +1,5 @@
 import React, { useLayoutEffect } from 'react';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { Platform, Pressable, StyleSheet, Text, View } from 'react-native';
 
 // constants
 import { Colors } from '@constants/GlobalStyle';
@@ -85,6 +85,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 16,
     backgroundColor: Colors.white,
+    paddingTop: Platform.OS === 'android' && 28,
   },
 
   iconBack: {
